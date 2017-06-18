@@ -1,11 +1,46 @@
-import { combineReducers } from 'redux'
 
-const initialState = {}
+import axios from 'axios'
+
+/* ------------------ actions ------------------------ */
+//const SET_USER_TEXT = 'SET_USER_TEXT'
+const SET_BOT_TEST = 'SET_BOT_TEST'
+
+
+/* ------------------ action creators ---------------- */
+export const setBotText = (txt) => ({ type: SET_BOT_TEST, txt })
+
+
+
+const initialState = {
+	userText: '',
+	botText: ''
+}
+
 
 const rootReducer = function(state = initialState, action) {
   switch(action.type) {
-    default: return state
+  	case SET_BOT_TEST:
+  		return Object.assign({}, state, {botText: action.txt})
+	default: return state
   }
 };
+
+/* ------------------ dispatchers ------------------- */
+export const fetchBotResponse = (userTxt) => 
+	dispatch => {
+		axios.get(`/api/${userTxt}`, {
+			userText: userTxt
+		})
+		.then( res => {
+			console.log('in fetch res', res)
+			// if(res.data.like)
+			// 	return dispatch(setBotText(res.data.like))
+			// else
+			// 	return dispatch(setBotText(res.data.msg))
+			return dispatch(setBotText(res.data.msg));
+
+		})
+		.catch(err => console.error('fail to get BOT response', err))
+}
 
 export default rootReducer

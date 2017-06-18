@@ -35,8 +35,16 @@ if (module === require.main) {
         * In 'api.js', note how `module` (this specific file - i.e. module) is different from `require.main` because this is NOT the file we started in and `require.main` is the file we started in
           ~ To help compare these objects, reference each of their `id` attributes
   */
+  // const server = app.listen(
+  //   process.env.PORT || 3000,
+  //   () => {
+  //     console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
+  //     console.log(`Listening on ${JSON.stringify(server.address())}`)
+  //   }
+  // )
+
   const server = app.listen(
-    process.env.PORT || 1337,
+   3000,
     () => {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
       console.log(`Listening on ${JSON.stringify(server.address())}`)

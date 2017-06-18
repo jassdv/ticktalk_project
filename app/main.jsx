@@ -1,14 +1,21 @@
 'use strict'
 import React from 'react'
-import {render} from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { Router, Route, hashHistory, IndexRedirect,browserHistory  } from 'react-router'
 
 import store from './store'
-import Root from './components/Root'
 
-render (
-  <Provider store={store}>
-    <Root/>
+//importing components
+import AppComponent from './components/App'
+
+
+
+ReactDOM.render (
+  <Provider store={store} >
+    <Router history={hashHistory} >
+    	<Route path='/' components={AppComponent} />
+    </Router>
   </Provider>,
   document.getElementById('main')
 )

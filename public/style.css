@@ -1,0 +1,7 @@
+body {
+  background-image: url('/images/Spongebob.png');
+  background-repeat: no-repeat;
+  background-position: 75% 75%;
+  background-attachment: fixed;
+  background-color:transparent;
+}
