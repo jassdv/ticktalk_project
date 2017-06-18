@@ -13,13 +13,29 @@ api.get('/:userText', (req, res) => {
 	let message = req.params.userText;
 	const client = new Wit({accessToken: 'HII4D2BEC7NPXF6YLXIO2GLO4EBRLS6U', actions});
 	//interactive(client,actions);
-	console.log('checking actions');
+	console.log('checking actions message:', message);
     const context0 = {};
     client.runActions(sessionId, message, context0)
     .then((context1) => {
-      console.log('retuAction returns', context1)
-      res.send(context1)
+      if(context1.msg)
+      {
+        console.log('got context',context1)
+        res.send(context1);
+        
+      }
+      else
+      {
+        console.log('running conerse, context', context1)
+        return client.converse(sessionId, message, context1)
+
+      }
+      
     })
+    .then((context2) => {
+      console.log('got back from convers context', context2 )
+      if(context2)
+        res.send(context2)
+   })
     .catch((e) => {
       console.log('Oops! Got an error: ' + e);
     });
@@ -45,25 +61,6 @@ api.get('/:userText', (req, res) => {
 	//  	 // return client.runActions(sessionId, 'and in Brussels?', context1);
 	// 	})
 	// }
-
-	
-
-	//checking actions
-	
-	// const token = 'HII4D2BEC7NPXF6YLXIO2GLO4EBRLS6U'
-	// fetch(
-	//   'https://api.wit.ai/message?v=20141022&session_id=abcd1234&q=hello',
-	//   {
-	//     method: 'GET',
-	//     headers: {Authorization: `Bearer ${token}`}
-	//   }
-	// )
-	// .then(response => response.json())
-	// .then((json)=>{
-	// 	res.send(json)
-
-	// });
-	// //res.send({hello: 'world'}))
 })
 
 const firstEntityValue = (entities, entity) => {
@@ -80,15 +77,16 @@ const firstEntityValue = (entities, entity) => {
 
 const actions = {
   send(request, response) {
-    return new Promise(function(resolve, reject) {
-        console.log(JSON.stringify(response));
-        return resolve();
-      });
-    // const {sessionId, context, entities} = request;
-    // const {text, quickreplies} = response;
+    // return new Promise(function(resolve, reject) {
+    //     console.log('in send', JSON.stringify(response));
+    //     request.context.response = response;
+    //     return resolve();
+    //   });
+    const {sessionId, context, entities} = request;
+    const {text, quickreplies} = response;
     // console.log('user said...', request.text);
     // console.log('sending...', JSON.stringify(response));
-    // console.log('context',context);
+    // console.log('context',request.context);
 
 
   },
@@ -99,6 +97,7 @@ const actions = {
 	    Array.isArray(entities['charecters']) &&
 	    entities['charecters'].length > 0 &&
 	    entities['charecters'][0].value;
+      console.log('in detect character', character)
 	    
       //const character = firstEntityValue(entities, 'charecters');
       if (character) {
@@ -153,6 +152,7 @@ const actions = {
     });
   },
   shuffleCharacters({context, entities}){
+    console.log('in shuffle')
   	return new Promise(function(resolve, reject) {
   		var characters = ['Spongebob', 'Flying Dutchman', 'Patrick Star', 'squidward', 'Sandy', 'Gary'];
   		var shuffleIndex = Math.floor(Math.random() * characters.length);
@@ -167,24 +167,31 @@ const actions = {
   		switch(context.character){
   			case 'Spongebob':
   				context.reason = 'because he is funny and silly';
+          context.msg = 'because he is funny and silly';
   				break;
   			case 'Flying Dutchman':
   				context.reason = 'because he always help Spongebob';
+          context.msg= 'because he always help Spongebob';
   				break;
   			case  'Patrick Star':
   				context.reason = 'because he is a good friend';
+          context.msg = 'because he is a good friend';
   				break;
   			case 'squidward':
   				context.reason = 'because he plays the Clarient beautifully';
+          context.msg = 'because he plays the Clarient beautifully';
   				break;
   			case 'Sandy':
   				context.reason = 'because she makes the best nutty butter';
+          context.msg = 'because she makes the best nutty butter';
   				break;
   			case 'Gary':
   				context.reason = 'because he won the snail race!!';
+          context.msg = 'because he won the snail race!!';
   				break;
   			default:
   				context.reason = 'mmmmm....no special reason';
+          context.msg = 'mmmmm....no special reason';
   				break;
 			}
   		return resolve(context);
