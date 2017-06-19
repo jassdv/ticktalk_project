@@ -38,6 +38,7 @@ const rootReducer = function(state = initialState, action) {
 /* ------------------ dispatchers ------------------- */
 export const fetchBotResponse = (userTxt) => 
 	dispatch => {
+		console.log('in fetch user text', userTxt)
 		axios.get(`/api/${userTxt}`, {
 			userText: userTxt,
 		})

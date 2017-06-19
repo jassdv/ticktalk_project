@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
+import Dict from './DictSpeech'
 import {fetchBotResponse} from '../reducers/index.jsx'
 import {connect} from 'react-redux'
 
@@ -31,6 +32,10 @@ const App = ({fetchBotResponse, botText}) => {
         			<h5 id="bot_text">{botText}</h5> 
         		</div>
         	</form>
+         </div>
+         <br></br>
+         <div className="row">
+          <Dict />
          </div>
       </div>
      </div>
