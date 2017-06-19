@@ -1,5 +1,15 @@
 
 import axios from 'axios'
+var synth = window.speechSynthesis;
+
+/* ------------------ speech functions --------------- */
+function speak(message){
+  var utterThis = new SpeechSynthesisUtterance(message);
+  utterThis.pitch = 0.9;
+  utterThis.rate = 1;
+  synth.speak(utterThis);
+}
+
 
 /* ------------------ actions ------------------------ */
 //const SET_USER_TEXT = 'SET_USER_TEXT'
@@ -37,6 +47,7 @@ export const fetchBotResponse = (userTxt) =>
 			// 	return dispatch(setBotText(res.data.like))
 			// else
 			// 	return dispatch(setBotText(res.data.msg))
+			speak(res.data.msg);
 			return dispatch(setBotText(res.data.msg));
 
 		})
