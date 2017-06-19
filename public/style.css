@@ -5,3 +5,12 @@ body {
   background-attachment: fixed;
   background-color:transparent;
 }
+
+#nav_title{
+	font-size: xx-large;
+	color: #000000;
+}
+
+#bot_text{
+	color: red;
+}

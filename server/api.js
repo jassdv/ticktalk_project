@@ -122,7 +122,7 @@ const actions = {
             context.like = 'playing the Clarinet';
             context.msg = `${character} likes playing the Clarinet`;
             break;
-          case 'spongebob':
+          case 'Spongebob':
             context.like = 'blowing bubbles'
             context.msg = `${character} likes blowing bubbles`;
             break;
@@ -163,6 +163,7 @@ const actions = {
   },
   whyCharacter({context, entities}){
   	console.log('in why context', context);
+    console.log('in why entities', entities);
   	return new Promise(function(resolve, reject) {
   		switch(context.character){
   			case 'Spongebob':

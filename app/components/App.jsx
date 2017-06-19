@@ -28,7 +28,7 @@ const App = ({fetchBotResponse, botText}) => {
         		<button type="submit" className="btn btn-default">send your message</button>
         		<div>
         			<h5>Your computer friend says:</h5>
-        			<h5>{botText}</h5> 
+        			<h5 id="bot_text">{botText}</h5> 
         		</div>
         	</form>
          </div>
