@@ -139,7 +139,7 @@ const actions = {
             context.msg = `${character} likes counting his money`;
             break;
           default:
-            context.msg = 'Mmmmm...I dont know this character';
+            context.msg = 'I dont know this character';
             break;
           }
 
@@ -191,12 +191,43 @@ const actions = {
           context.msg = 'because he won the snail race!!';
   				break;
   			default:
-  				context.reason = 'mmmmm....no special reason';
-          context.msg = 'mmmmm....no special reason';
+  				context.reason = 'no special reason';
+          context.msg = 'no special reason';
   				break;
 			}
   		return resolve(context);
   	});
+  },
+  whereCharacterLive({context, entities}){
+    return new Promise(function(resolve, reject) {
+      const character = entities && entities['charecters'] &&
+      Array.isArray(entities['charecters']) &&
+      entities['charecters'].length > 0 &&
+      entities['charecters'][0].value;
+      switch(character){
+        case 'Spongebob':
+          context.msg = 'Spongebob live in a Pineapple';
+          break;
+        case 'Sandy':
+          context.msg= 'Sandy lives in the Treedome';
+          break;
+        case  'Patrick Star,':
+          context.msg = 'Patrick lives in the Rock';
+          break;
+        case 'squidward':
+          context.msg = 'Squidward lives in a weird blue house';
+          break;
+        case 'Gary':
+          context.msg = 'Gary lives with Spongebob in the pineapple';
+          break;
+        default:
+          context.msg = 'I dont know';
+          break;
+      }
+      return resolve(context);
+    });
+
+
   },
 
   ['compute-end']({context}){

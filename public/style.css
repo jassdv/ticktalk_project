@@ -14,3 +14,8 @@ body {
 #bot_text{
 	color: red;
 }
+
+#dict{
+	clear: both;
+	vertical-align: bottom;
+}

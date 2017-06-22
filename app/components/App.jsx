@@ -1,12 +1,13 @@
 import React from 'react'
 import Navbar from './Navbar'
-import {fetchBotResponse} from '../reducers/index.jsx'
+import Dict from './DictSpeech'
+import {fetchBotResponse, setSpeech} from '../reducers/index.jsx'
 import {connect} from 'react-redux'
 
 
 
 
-const App = ({fetchBotResponse, botText}) => {
+const App = ({fetchBotResponse, setSpeech, botText, speech}) => {
 	console.log('got to app')
 
   return (
@@ -32,6 +33,7 @@ const App = ({fetchBotResponse, botText}) => {
         		</div>
         	</form>
          </div>
+         
       </div>
      </div>
      </div>
@@ -43,14 +45,19 @@ const App = ({fetchBotResponse, botText}) => {
 const mapDispatchToProp = (dispatch) => {
 
     return{
-        fetchBotResponse: (userText)=>{dispatch(fetchBotResponse(userText));}
+        fetchBotResponse: (userText)=>{dispatch(fetchBotResponse(userText));},
+        setSpeech: (speechState) => {dispatch(setSpeech(speechState))}
+
     }
 
 
 }
 
 const AppComponent = connect(
-  (state) => ({ botText: state.botText }),
+  (state) => ({ 
+    botText: state.botText,
+    speech: state.speech
+     }),
   mapDispatchToProp)(App)
 
 
@@ -58,12 +65,8 @@ export default AppComponent
 
 
 /*
-<Navbar />
-      <div id="body">
-        {children}
-      </div>
-
-       <div>
-        <h1> TickTalk </h1>
-      </div>
+<br></br>
+         <div id="dict">
+          <Dict />
+         </div>
 */
